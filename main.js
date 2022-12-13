@@ -100,9 +100,7 @@ const finalizarCompra = (listaDeBebidas) => {
     alert('Detalles de tu compra:'
         +'\n'+listaDeBebidas.join('\n')
         +'\n\nTotal de productos: '+cantidadTotal
-        +'\nEl total de la compra es: '+precioTotal
-        +'\n\nGracias por su compra!'
-    );
+        +'\nEl total de la compra es: '+precioTotal);
 };
 // preguntar si quiere poner el filtro 
 const comprar = () => {
@@ -113,5 +111,34 @@ const comprar = () => {
         ordenarPorMayor()
     }
 };
-
 comprar()
+
+// pagar
+let totalIntereses = 0;
+let precioInteres = 0;
+const sumar = (a, b) => a + b;
+const calcularInteres = (a, b) => a * b;
+
+const pagar = (listaDeBebidas) => {
+    precioTotal = carrito.reduce((acc, elemento) => acc + (elemento.precio * elemento.cantidad), 0);
+
+     let pagar = parseInt(prompt('En cuantas cuotas deseas pagar: 1, 3, 6'));
+     if (pagar == 1) {
+         alert('Tu compra es de '+precioTotal);
+     } else if (pagar == 3) {
+         totalIntereses = calcularInteres(precioTotal, 0.10)
+         precioInteres = sumar(precioTotal, totalIntereses)
+         alert('Pagando en 3 cuotas, tiene un interes del 10%, que seria: '+totalIntereses+ ', asi que su compra tendria un total de: '+precioInteres);
+
+     } else if (pagar == 6) {
+         totalIntereses = calcularInteres(precioTotal, 0.20)
+         precioInteres = sumar(precioTotal, totalIntereses)
+         alert('Pagando en 6 cuotas, tiene un interes del 20%, que seria: '+totalIntereses+ ', asi que su compra tendria un total de: '+precioInteres);
+     }
+     else {
+         alert('selecciona una  las opciones anteriores');
+         pagar = prompt('en cuantas cuotas deseas pagar');
+     }
+     alert('Muchas gracias por tu compra, vuelve pronto!')
+};
+pagar()
